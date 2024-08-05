@@ -1,0 +1,25 @@
+{
+    "produtos": [
+        {
+            "id": 1,
+            "nome": "smartphone",
+            "descricao": "iphone 15 pro max",
+            "preco": 1500.00,
+            "imagem": "smartphone.jpg"
+        },
+        {
+            "id": 2,
+            "nome": "televisão",
+            "descricao": "smart tv 32pol.",
+            "preco": 2500.00,
+            "imagem": "smartTV.jpg"
+        },
+        {
+            "id": 3,
+            "nome": "monitor",
+            "descricao": "monitor para pc gamer",
+            "preco": 800.00,
+            "imagem": "monitorgamer.jpg"
+        }
+    ]
+}
