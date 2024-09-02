@@ -27,8 +27,9 @@ const createClientes = async (req,res) => {
     dados.senha = senhaCripto
     dados.id = _id
     db.clientes.push(dados)
-    fs.writeFile('./db.json', JSON.stringify(db), (err) => {
+    fs.writeFile('../db.json', JSON.stringify(db), (err) => {
         if (err){
+            console.log(err)
             return res.status(500).send({error:'erro no servidor'})
         }
     })
@@ -50,13 +51,13 @@ const updateClientes = async (req,res) => {
                continue;
           }
           cliente[dado] = dados[dado];
-       }
-       fs.writeFile('../db.json', JSON.stringify(db), (err) => {
+        }
+        fs.writeFile('./db.json', JSON.stringify(db), (err) => {
           if (err){
               res.status(500).send({error:'erro no servidor'})
           }
        })
-       res.status(500).send({cliente})
+       res.status(200).send({cliente})
    }
     // atualizar o cliente
     
@@ -66,7 +67,15 @@ const deleteClientes = async (req,res) => {
     const cliente = lista_clientes.find(
         (cliente) => cliente.id == _id
         )
+    var idx = lista_clientes.indexOf(cliente)
+    lista_clientes.splice(idx,1)
+    fs.writeFile('./db.json', JSON.stringify(db), (err) => { 
+        if (err){
+            return res.status(500).send({error:'erro no servidor'})
+        }
+    })
+    res.status(204).send()
     // deletar o cliente
-}
+}  
 
 module.exports = {listClientes, getClientes, createClientes, updateClientes, deleteClientes}
