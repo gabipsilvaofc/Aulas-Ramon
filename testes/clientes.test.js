@@ -12,6 +12,11 @@ describe('GET /clientes', () => {
         const res = await request(app).get('/clientes').send();
         expect(res.body).toBeDefined() //verifica que existe //se fosse undefined não teria nada
     });
+    it('pegar um clientes pelo id', async () => {
+        const res = await request(app).get('/clientes/d05fa528-7a2c-4ffc-b73c-78c87536fc9b').send();
+        expect(res.status).toBe(200)
+        // expect (res.body).toBe({})
+    });
 })
 describe('POST /clientes', () => {
     it('criar cliente com sucesso', async () => {

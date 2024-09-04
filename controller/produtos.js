@@ -49,6 +49,14 @@ const deleteProduto = async (req,res) => {
     const produto = lista_produtos.find(
         (produto) => produto.id == _id
         )
+        var idx = lista_produtos.indexOf(produto)
+        lista_produtos.splice(idx,1)
+        fs.writeFile('./db.json', JSON.stringify(db), (err) => { 
+            if (err){
+                return res.status(500).send({error:'erro no servidor'})
+            }
+        })
+        res.status(204).send()
     // deletar o produto
 }
 

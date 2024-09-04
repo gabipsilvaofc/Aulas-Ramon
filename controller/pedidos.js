@@ -9,11 +9,11 @@ const listPedidos = async (req,res) => {
 }
 const getPedidos = async (req, res) => {
     const _id = req.params.id
-    const lista_Pedidos = db.Pedidos
-    const Pedido = lista_Pedidos.find(
-        (Pedido) => Pedido.id == _id
+    const lista_pedidos = db.pedidos
+    const pedido = lista_pedidos.find(
+        (pedido) => pedido.id == _id
         )
-    Pedido ? res.send(Pedido) : res.status(404).send({error:'not found'})
+    pedido ? res.send(pedido) : res.status(404).send({error:'not found'})
 }
 const createPedidos = async (req,res) => {
     const dados = req.body
@@ -22,8 +22,8 @@ const createPedidos = async (req,res) => {
     }
     const _id = uuidv4()
     dados.id = _id
-    db.Pedidos.push(dados)
-    fs.writeFile('./db.json', JSON.stringify(db), (err) => {
+    db.pedidos.push(dados)
+    fs.writeFile('../db.json', JSON.stringify(db), (err) => {
         if (err){
             return res.status(500).send({error:'erro no servidor'})
         }
@@ -49,6 +49,14 @@ const deletePedidos = async (req,res) => {
     const Pedido = lista_Pedidos.find(
         (Pedido) => Pedido.id == _id
         )
+        var idx = lista_Pedidos.indexOf(Pedido)
+        lista_Pedidos.splice(idx,1)
+        fs.writeFile('./db.json', JSON.stringify(db), (err) => { 
+            if (err){
+                return res.status(500).send({error:'erro no servidor'})
+            }
+        })
+        res.status(204).send()
     // deletar o Pedido
 }
 
