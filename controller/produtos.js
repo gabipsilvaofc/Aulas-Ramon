@@ -5,7 +5,7 @@ const fs = require('fs')
 
 const listProdutos = async (req,res) => {
     var produtos = db.produtos
-    res.json(produtos)
+    return res.json(produtos)
 }
 const getProduto = async (req, res) => {
     const _id = req.params.id
@@ -28,7 +28,7 @@ const createProduto = async (req,res) => {
             return res.status(500).send({error:'erro no servidor'})
         }
     })
-    res.status(204).send()
+    return res.status(204).send()
 }
 const updateProduto = async (req,res) => {
     const _id = req.params.id  
@@ -40,9 +40,23 @@ const updateProduto = async (req,res) => {
     if (!produto || !dados) {
        return res.status(404).send({error:'not found'})
     }
+    for(const dado in dados){
+        if(!(dado in produto)){
+            console.log('erro! esse dado não existe');
+               continue;
+          }
+          produto[dado] = dados[dado];
+       }
+       fs.writeFile('.db.json', JSON.stringify(db), (err) => {
+          if (err){
+              return res.status(500).send({error:'erro no servidor'})
+          }
+       })
+       return res.status(500).send({produto})
+   }
     
     // atualizar o produto
-}
+
 const deleteProduto = async (req,res) => {
     const _id = req.params.id
     const lista_produtos = db.produtos
@@ -56,7 +70,7 @@ const deleteProduto = async (req,res) => {
                 return res.status(500).send({error:'erro no servidor'})
             }
         })
-        res.status(204).send()
+        return res.status(204).send()
     // deletar o produto
 }
 

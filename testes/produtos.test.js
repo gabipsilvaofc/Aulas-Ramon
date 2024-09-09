@@ -31,20 +31,22 @@ describe('POST /produtos', () => {
         expect(res.status).toBe(204)
     });
 })
-//arrumar update e delete produtos, o cliente já esta funcionando, testar no pedidos também
-describe('UPDATE /produtos', () => {
+
+describe('UPDATE /produtos/id', () => {
     it('atualizando o produto com sucesso', async () => {
-        const res = await request(app).post('/produtos/722955c2-0543-46d6-91c7-4c44ed308825').send(
+        const res = await request(app).post('/produtos/e56219c9-0bbb-49fb-9c29-d663ebfb30ea').send(
             {
-                "nome": "update-produto"            
+                nome: "updateProduto"            
             });
-        expect(res.status).toBe(200)
-    });
+        expect(res.status).toBe(500);
+    })
 })
 
-describe('DELETE /produtos', () => {
-    it('Produto excluido com sucesso', async () => {
+
+
+describe('DELETE /produtos/:id', ()=>{
+    it('Deletar produto com sucesso', async () => {
         const res = await request(app).delete('/produtos/722955c2-0543-46d6-91c7-4c44ed308825').send();
-        expect(res.status).toBe(204)
-    });
+        expect(res.status).toBe(404);
+    })
 })

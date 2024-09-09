@@ -6,7 +6,7 @@ const bcryptjs = require('bcryptjs')
 
 const listClientes = async (req,res) => {
     var clientes = db.clientes
-    res.json(clientes)
+    return res.json(clientes)
 }
 const getClientes = async (req, res) => {
     const _id = req.params.id
@@ -33,7 +33,7 @@ const createClientes = async (req,res) => {
             return res.status(500).send({error:'erro no servidor'})
         }
     })
-    res.status(204).send()
+    return res.status(204).send()
 }
 const updateClientes = async (req,res) => {
     const _id = req.params.id  
@@ -54,10 +54,10 @@ const updateClientes = async (req,res) => {
         }
         fs.writeFile('./db.json', JSON.stringify(db), (err) => {
           if (err){
-              res.status(500).send({error:'erro no servidor'})
+              return res.status(500).send({error:'erro no servidor'})
           }
        })
-       res.status(200).send({cliente})
+       return res.status(200).send({cliente})
    }
     // atualizar o cliente
     
@@ -74,7 +74,7 @@ const deleteClientes = async (req,res) => {
             return res.status(500).send({error:'erro no servidor'})
         }
     })
-    res.status(204).send()
+    return res.status(204).send()
     // deletar o cliente
 }  
 

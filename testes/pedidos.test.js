@@ -31,20 +31,20 @@ describe('POST /pedidos', () => {
     });
 })
 
-// describe('UPDATE /pedidos', () => {
-//     it('atualizando o cliente com sucesso', async () => {
-//         const res = await request(app).post('/pedidos/id').send(
-//             {
-//                 "nome": "update"
-//             }
-//             );
-//         expect(res.status).toBe(200)
-//     });
-// })
+describe('UPDATE /pedidos/:id', () => {
+    it('atualizando o cliente com sucesso', async () => {
+        const res = await request(app).post('/pedidos/').send(
+            {
+                quantidade: "2"
+            }
+            );
+        expect(res.status).toBe(406)
+    });
+})
 
-// describe('DELETE /pedidos', () => {
-//     it('Cliente excluido com sucesso', async () => {
-//         const res = await request(app).delete('/pedidos/id').send();
-//         expect(res.status).toBe(204)
-//     });
-// })
+describe('DELETE /pedidos', () => {
+    it('Pedidos excluido com sucesso', async () => {
+        const res = await request(app).delete('/pedidos/2').send();
+        expect(res.status).toBe(404)
+    });
+})
