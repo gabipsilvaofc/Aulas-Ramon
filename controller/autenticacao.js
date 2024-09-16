@@ -1,6 +1,7 @@
 const db = require('../db.json')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
 const login = (req,res) => {
     try{
         const{email, senha} = req.body;
@@ -9,16 +10,15 @@ const login = (req,res) => {
             res.send({erro: 'email ou senha não enviado'})
         }
         const cliente = lista_clientes.find(
-            (cliente) => cliente.email == email
+            (cliente) => cliente?.email == email
             )
             if (!cliente){
                 res.status(404).send({error:'not found'})
             }
-            const senhaValida = bcrypt.compareSync(senha, cliente.senha)
-
-        if(!senhaValida){
-            res.send({error: 'a senha não é valida'})
-        }
+        const senhaValida = bcrypt.compareSync(senha, cliente.senha)
+            if(!senhaValida){
+                res.send({error: 'a senha não é valida'})
+            }
 
         const token = jwt.sign(
             {

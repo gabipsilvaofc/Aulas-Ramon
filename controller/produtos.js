@@ -4,6 +4,7 @@ const fs = require('fs')
 
 
 const listProdutos = async (req,res) => {
+    
     var produtos = db.produtos
     return res.json(produtos)
 }
